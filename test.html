@@ -1,147 +1,29 @@
-<!DOCTYPE html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AniVerse</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #f9f9f9;
-      }
-      header,
-      footer {
-        background: #ff66cc;
-        color: white;
-        text-align: center;
-        padding: 10px;
-      }
-      nav a {
-        margin: 0 8px;
-        color: white;
-        text-decoration: none;
-      }
-      .section {
-        padding: 15px;
-        text-align: center;
-      }
-      .image-slot {
-        width: 100%;
-        max-width: 300px;
-        display: block;
-        margin: 10px auto;
-        border: 1px dashed #ccc;
-        padding: 5px;
-      }
-      .middle-text {
-        text-align: center;
-        font-size: 18px;
-        margin: 20px 0;
-        color: #ff66cc;
-      }
+<!-- 🔹 Navbar -->
+<nav>
+  <div class="logo">
+    <img
+      src="https://uploads.turbologo.com/uploads/design/hq_preview_image/4551835/draw_svg20211224-8647-1vc0v11.svg.png"
+      alt="Logo"
+    />
+    WeebooNews
+  </div>
+  <ul>
+    <li><a href="#" onclick="showPage('home')">❤️Trang chủ❤️</a></li>
+    <li><a href="#" onclick="showPage('lichchieu')">Lịch chiếu anime</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+</nav>
 
-      .carousel-container {
-        position: relative;
-        max-width: 600px;
-        margin: 0 auto;
-        overflow: hidden;
-        border-radius: 8px;
-      }
-      .carousel-slide {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-      }
-      .carousel-slide img {
-        width: 100%;
-        flex-shrink: 0;
-      }
-      .carousel-buttons {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-      }
-      .carousel-buttons button {
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        color: white;
-        font-size: 18px;
-        padding: 10px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>AniVerse</h1>
-      <nav>
-        <a href="#home">Trang chủ</a>
-        <a href="#schedule">Lịch chiếu</a>
-        <a href="#community">Cộng đồng</a>
-      </nav>
-    </header>
+<!-- 🔹 Nội dung -->
+<main>
+  <!-- Trang chủ -->
+  <div id="home" class="page active">
+    <!-- nguyên phần container cột tin tức + top anime của bạn -->
+  </div>
 
-    <section id="home" class="section">
-      <p>Chào mừng đến AniVerse</p>
-
-      <div class="carousel-container">
-        <div class="carousel-slide" id="carousel-slide">
-          <img
-            src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/01/hinh-nen-anime-1.jpg"
-            alt="Anime 1"
-          />
-          <img
-            src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/09/hinh-nen-may-tinh-anime-ngau.jpg"
-            alt="Anime 2"
-          />
-          <img
-            src="https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/hinh-nen-may-tinh-anime/hinh-nen-anime-de-thuong-cho-may-tinh.jpg?1670643011544"
-            alt="Anime 3"
-          />
-        </div>
-        <div class="carousel-buttons">
-          <button onclick="prevSlide()">❮</button>
-          <button onclick="nextSlide()">❯</button>
-        </div>
-      </div>
-    </section>
-
-    <div class="middle-text">xem alime đi và bạn sẽ thành weeboo</div>
-
-    <section id="schedule" class="section">
-      <p>Lịch chiếu Anime/Game theo mùa sẽ cập nhật tại đây.</p>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/vi/b/bb/%C3%81p_ph%C3%ADch_Thanh_g%C6%B0%C6%A1m_di%E1%BB%87t_qu%E1%BB%B7-_V%C3%B4_h%E1%BA%A1n_th%C3%A0nh.jpg"
-        alt="Lịch chiếu"
-        class="image-slot"
-      />
-    </section>
-
-    <footer>&copy; @HipoBel:></footer>
-
-    <script>
-      let index = 0;
-      const slide = document.getElementById("carousel-slide");
-      const total = slide.children.length;
-
-      function updateSlide() {
-        slide.style.transform = `translateX(-${index * 100}%)`;
-      }
-
-      function nextSlide() {
-        index = (index + 1) % total;
-        updateSlide();
-      }
-
-      function prevSlide() {
-        index = (index - 1 + total) % total;
-        updateSlide();
-      }
-
-      setInterval(nextSlide, 4000);
-    </script>
-  </body>
-</html>
+  <!-- Lịch chiếu anime -->
+  <div id="lichchieu" class="page" style="display: none">
+    <h2>Lịch chiếu Anime 📅</h2>
+    <p>Đây là nội dung trang Lịch chiếu...</p>
+  </div>
+</main>

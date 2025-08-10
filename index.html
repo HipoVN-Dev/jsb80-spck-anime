@@ -3,151 +3,599 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AniVerse</title>
+    <title>HipoBels</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
+      * {
+        box-sizing: border-box;
         margin: 0;
-        background: #f9f9f9;
-      }
-      header,
-      footer {
-        background: #ff66cc;
-        color: white;
-        text-align: center;
-        padding: 10px;
-      }
-      nav a {
-        margin: 0 8px;
-        color: white;
-        text-decoration: none;
-      }
-      .section {
-        padding: 15px;
-        text-align: center;
-      }
-      .image-slot {
-        width: 100%;
-        max-width: 300px;
-        display: block;
-        margin: 10px auto;
-        border: 1px dashed #ccc;
-        padding: 5px;
-      }
-      .middle-text {
-        text-align: center;
-        font-size: 18px;
-        margin: 20px 0;
-        color: #ff66cc;
+        padding: 0;
       }
 
-      .carousel-container {
-        position: relative;
-        max-width: 600px;
-        margin: 0 auto;
-        overflow: hidden;
-        border-radius: 8px;
+      body {
+        font-family: Arial, sans-serif;
+        background: var(--bg-color);
+        color: var(--text-color);
+        transition: background 0.3s, color 0.3s;
       }
-      .carousel-slide {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
+
+      :root {
+        --bg-color: #f7f7f7;
+        --text-color: #222;
+        --card-bg: #fff;
+        --nav-bg: #222;
+        --nav-text: white;
+        --hover-bg: #f0f0f0;
+        --footer-bg: #222;
       }
-      .carousel-slide img {
-        width: 100%;
-        flex-shrink: 0;
+
+      body.dark {
+        --bg-color: #181818;
+        --text-color: #eee;
+        --card-bg: #242424;
+        --nav-bg: #111;
+        --nav-text: white;
+        --hover-bg: #333;
+        --footer-bg: #111;
       }
-      .carousel-buttons {
-        position: absolute;
-        top: 50%;
-        width: 100%;
+
+      nav {
+        background: var(--nav-bg);
+        color: var(--nav-text);
+        padding: 12px 20px;
         display: flex;
         justify-content: space-between;
-        transform: translateY(-50%);
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: linear-gradient(
+          270deg,
+          red,
+          orange,
+          yellow,
+          green,
+          cyan,
+          blue,
+          violet
+        );
+        background-size: 1400% 1400%;
+        animation: rainbow 8s ease infinite;
       }
-      .carousel-buttons button {
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        color: white;
+
+      nav .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
         font-size: 18px;
-        padding: 10px;
+      }
+
+      nav .logo img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--nav-text);
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+
+      nav ul li a:hover {
+        color: #ff9800;
+      }
+
+      .theme-toggle {
         cursor: pointer;
+        font-size: 18px;
+        background: none;
+        border: none;
+        color: var(--nav-text);
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+        color: var(--text-color);
+      }
+
+      .container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .column {
+        flex: 1;
+        min-width: 300px;
+        background: var(--card-bg);
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      a.post {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background 0.2s;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      a.post:hover {
+        background: var(--hover-bg);
+      }
+
+      a.post img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .post-details {
+        flex: 1;
+      }
+
+      .post-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 0 4px;
+        color: var(--text-color);
+      }
+
+      .post-title:hover {
+        color: #007bff;
+        text-decoration: underline;
+      }
+
+      .post-meta {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 6px;
+      }
+
+      .post-desc {
+        font-size: 14px;
+        color: var(--text-color);
+      }
+
+      footer {
+        background: var(--footer-bg);
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+        margin-top: 20px;
+        background: linear-gradient(
+          270deg,
+          red,
+          orange,
+          yellow,
+          green,
+          cyan,
+          blue,
+          violet
+        );
+        background-size: 1400% 1400%;
+        animation: rainbow 8s ease infinite;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>AniVerse</h1>
-      <nav>
-        <a href="#home">Trang chủ</a>
-        <a href="#schedule">Lịch chiếu</a>
-        <a href="#community">Cộng đồng</a>
-      </nav>
-    </header>
+    <nav>
+      <div class="logo">
+        <img
+          src="https://uploads.turbologo.com/uploads/design/hq_preview_image/4551835/draw_svg20211224-8647-1vc0v11.svg.png"
+          alt="Logo"
+        />
+        WeebooNews
+      </div>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">❤️Trang chủ❤️</a></li>
+        <li></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
 
-    <section id="home" class="section">
-      <p>Chào mừng đến AniVerse</p>
+    <main>
+      <div class="container">
+        <div class="column">
+          <h2>Tin tức Anime hôm nay🤑</h2>
 
-      <div class="carousel-container">
-        <div class="carousel-slide" id="carousel-slide">
-          <img
-            src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/01/hinh-nen-anime-1.jpg"
-            alt="Anime 1"
-          />
-          <img
-            src="https://hoanghamobile.com/tin-tuc/wp-content/uploads/2024/09/hinh-nen-may-tinh-anime-ngau.jpg"
-            alt="Anime 2"
-          />
-          <img
-            src="https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/hinh-nen-may-tinh-anime/hinh-nen-anime-de-thuong-cho-may-tinh.jpg?1670643011544"
-            alt="Anime 3"
-          />
-          <img src="https://wallpaper.dog/large/20487373.jpg" alt="Anime 4" />
-          <img
-            src="https://tse3.mm.bing.net/th/id/OIP.FUWemmiC_dRF9PF-PwLDUgHaEo?pid=Api&P=0&h=180"
-            alt="Anime 5"
-          />
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/_thumbs/Images/2024/09/16/1743/manga-hunter-x-hunter-da-quay-tro-lai-duong-dua-quoc-te.jpg"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                Manga Hunter X Hunter đã quay trở lại đường đua quốc tế
+              </p>
+              <p class="post-meta">· HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Hunter x Hunter phiên bản manga và anime sẽ quay trở lại màn ảnh
+                sau gần 2 năm vắng bóng.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/_thumbs/Images/2024/09/16/1742/anime-blue-box-thoi-gian-phat-song-va-niem-tin-thanh-cong.jpg"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                Anime Blue Box - Thời gian phát sóng và niềm tin thành công
+              </p>
+              <p class="post-meta">· HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Blue Box phiên bản anime dự kiến sẽ được phát sóng vào tháng 10
+                năm nay.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/_thumbs/Images/2024/08/12/1703/anime-the-red-ranger-becomes-an-adventurer-cong-bo-ngay-phat-hanh-nam-2025.jpg"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                The Red Ranger Becomes an Adventurer sẽ phát hành năm 2025
+              </p>
+              <p class="post-meta">· HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Kadokawa đã công bố thời điểm sản xuất anime The Red Ranger
+                Becomes an Adventurer và thời điểm phát hành là vào tháng 1 năm
+                2025.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/images/2024/08/12/1702/one-piece-live-action-mua-2-duoc-xac-nhan-co-su-gop-mat-cua-ace-1.jpg"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                One Piece Live Action mùa 2 được xác nhận có sự góp mặt của Ace
+              </p>
+              <p class="post-meta">· HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Nhân vật Portgas D. Ace được xác nhận sẽ xuất hiện trong loạt
+                phim gốc One Piece Live Action của mùa 2 sắp tới trên Netflix.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/images/2024/08/12/1700/the-wrong-way-to-use-healing-magic-mua-2-chinh-thuc-duoc-xac-nhan-tai-otakon-1.jpg"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                The Wrong Way to Use Healing Magic mùa 2 xác nhận ra mắt
+              </p>
+              <p class="post-meta">· miduynph · 1 ngày trước</p>
+              <p class="post-desc">
+                The Wrong Way to Use Healing Magic mùa 2 đã chính thức được xác
+                nhận ra mắt thông qua một hội thảo tại hội nghị Otakon ở
+                Washington DS.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://tse4.mm.bing.net/th/id/OIP.IJvumWdeJpObOAY07MJxnwHaEK?pid=Api&P=0&h=180"
+              alt="Mang Mẹ Đi Bộ"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                Demon Slayer - Vô Hạn Thành vé cháy như fifai ở Nhật Bản
+              </p>
+              <p class="post-meta">· HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Tuyệt đối điện ảnh</p>
+            </div>
+          </a>
+
+          <a href="#" class="post">
+            <img
+              src="https://cdn.chuuniotaku.com/upload/chuuniotaku_com/post/images/2024/07/18/1669/phan-cuoi-cua-jujutsu-kaisen-co-phai-shinjuku-showdown-khong-1.jpg"
+              alt="Avatar 3"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                Arc cuối Jujutsu Kaisen được xác nhận là Shinjuku Showdown
+              </p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Judas...</p>
+            </div>
+          </a>
+
+          <a href="#" class="post">
+            <img
+              src="https://tse1.mm.bing.net/th/id/OIP.r4atOrGdYQaIuP7RjbUGBAAAAA?pid=Api&P=0&h=180"
+              alt="Toàn Trí Độc Giả"
+            />
+            <div class="post-details">
+              <p class="post-title">
+                Solo Leveling: Ragnarok thông báo chuyển thể webtoon vào tháng
+                10 năm 2025
+              </p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Solo Leveling Ragnarok đã chính thức đưa ra thông báo chuyển thể
+                webtoon vào tháng 11 năm 2025. Ngày chuyển thể chính thức của
+                webtoon là ngày đầu tiên của tháng ?.
+              </p>
+            </div>
+          </a>
         </div>
-        <div class="carousel-buttons">
-          <button onclick="prevSlide()">❮</button>
-          <button onclick="nextSlide()">❯</button>
+
+        <div class="column">
+          <h2>Top anime✨</h2>
+
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1015/138006.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title">Sousou no Frieren</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Vượt qua điểm cuối của hành trình</p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1208/94745.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title">Fullmetal Alchemist: Brotherhood</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Sau một thí nghiệm giả kim kinh hoàng xảy ra sự cố trong gia
+                đình Elric, hai anh em Edward và Alphonse bị bỏ lại trong một
+                thực tại mới đầy thảm họa.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1935/127974.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title">Steins;Gate</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Nhà khoa học lập dị Rintarou Okabe luôn khao khát khám phá khoa
+                học. Cùng với người bạn ngốc nghếch nhưng tốt bụng Mayuri Shiina
+                và bạn cùng phòng Itaru Hashida, Okabe thành lập Phòng thí
+                nghiệm Thiết bị Tương lai với hy vọng tạo ra những cải tiến công
+                nghệ khiến tâm trí con người phải bối rối.
+              </p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1517/100633.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title">Shingeki no Kyojin Season 3 Part 2</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Shinzō wo Sasageyo!</p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1245/116760.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title"></p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Rất Final</p>
+            </div>
+          </a>
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1455/146229.jpg"
+              alt="Conan Movie 28"
+            />
+            <div class="post-details">
+              <p class="post-title">One Piece Fan Letter</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">Thư của người hâm mộ One Piece</p>
+            </div>
+          </a>
+
+          <a href="#" class="post">
+            <img
+              src="https://tse3.mm.bing.net/th/id/OIP.bXa-lYdvqvvCeFjn0ArgzwHaEK?pid=Api&P=0&h=180"
+              alt="Thám tử Tư"
+            />
+            <div class="post-details">
+              <p class="post-title">Hunter x Hunter (2011)</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">
+                Thợ săn cống hiến hết mình để hoàn thành những nhiệm vụ nguy
+                hiểm,Động lực thúc đẩy Gon Freecss 12 tuổi là tìm kiếm Ging, cha
+                mình và bản thân cũng là một Thợ săn.
+              </p>
+            </div>
+          </a>
+
+          <a href="#" class="post">
+            <img
+              src="https://cdn.myanimelist.net/images/anime/1908/135431.jpg"
+              alt="Bộ Tứ Siêu Đẳng"
+            />
+            <div class="post-details">
+              <p class="post-title">Bleach: Sennen Kessen-hen</p>
+              <p class="post-meta">HipoBel · 1 ngày trước</p>
+              <p class="post-desc">HipBel đã hết ý tưởng💔</p>
+            </div>
+          </a>
         </div>
       </div>
-    </section>
+      <div class="column">
+        <h2>Lịch chiếu anime✨</h2>
 
-    <div class="middle-text">xem alime đi và bạn sẽ thành weeboo</div>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/sousou-no-frieren-2nd-season-74b76c4f00.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">Sousou no Frieren SS2</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">Vượt qua điểm cuối của hành trình</p>
+          </div>
+        </a>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/mushoku-tensei-iii-isekai-ittara-honki-dasu-551d08c6fa.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">
+              Mushoku Tensei III: Isekai Ittara Honki Dasu
+            </p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">
+              The third season of Mushoku Tensei: Isekai Ittara Honki Dasu
+            </p>
+          </div>
+        </a>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/tensei-shitara-slime-datta-ken-4th-season-2c5172c409.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">Tensei shitara Slime Datta Ken 4</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">
+              The fourth season of Tensei Shitara Slime Datta Ken
+            </p>
+          </div>
+        </a>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/mato-seihei-no-slave-2nd-season-71d60a3273.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">Mato Seihei no Slave 2nd Season</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">Nole</p>
+          </div>
+        </a>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/tantei-wa-mou-shindeiru-season-2-e272c68d8f.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">Tantei wa Mou, Shindeiru. Season 2</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">:)</p>
+          </div>
+        </a>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/re-zero-kara-hajimeru-isekai-seikatsu-4-d596353494.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Conan Movie 28"
+          />
+          <div class="post-details">
+            <p class="post-title">Re:Zero kara Hajimeru Isekai Seikatsu 4</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">
+              The fourth season of Re:Zero kara Hajimeru Isekai Seikatsu.
+            </p>
+          </div>
+        </a>
 
-    <section id="schedule" class="section">
-      <p>Lịch chiếu Anime theo mùa sẽ cập nhật tại đây.</p>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/vi/b/bb/%C3%81p_ph%C3%ADch_Thanh_g%C6%B0%C6%A1m_di%E1%BB%87t_qu%E1%BB%B7-_V%C3%B4_h%E1%BA%A1n_th%C3%A0nh.jpg"
-        alt="Lịch chiếu"
-        class="image-slot"
-      />
-    </section>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/enen-no-shouboutai-san-no-shou-part-2-7a8021ef6b.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Thám tử Tư"
+          />
+          <div class="post-details">
+            <p class="post-title">Enen no Shouboutai: San no Shou Part 2</p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">
+              The second part of Enen no Shouboutai: San no Shou.
+            </p>
+          </div>
+        </a>
 
-    <footer>&copy; @HipoBel:></footer>
+        <a href="#" class="post">
+          <img
+            src="https://img.animeschedule.net/production/assets/public/img/anime/jpg/default/saikyou-no-ousama-nidome-no-jinsei-wa-nani-wo-suru-2nd-season-a280ef180c.jpg?w=340&q=90&b=0.7&s=0.6&up=false&strip=true&webp=auto"
+            alt="Bộ Tứ Siêu Đẳng"
+          />
+          <div class="post-details">
+            <p class="post-title">
+              Saikyou no Ousama, Nidome no Jinsei wa Nani wo Suru? 2nd Season
+            </p>
+            <p class="post-meta">HipoBel · 1 ngày trước</p>
+            <p class="post-desc">HipBel đã hết ý tưởng💔</p>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>&copy;HipoBel</footer>
 
     <script>
-      let index = 0;
-      const slide = document.getElementById("carousel-slide");
-      const total = slide.children.length;
+      const toggleBtn = document.getElementById("themeToggle");
+      const body = document.body;
 
-      function updateSlide() {
-        slide.style.transform = `translateX(-${index * 100}%)`;
+      if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark");
+        toggleBtn.textContent = "☀️";
       }
 
-      function nextSlide() {
-        index = (index + 1) % total;
-        updateSlide();
-      }
-
-      function prevSlide() {
-        index = (index - 1 + total) % total;
-        updateSlide();
-      }
-
-      setInterval(nextSlide, 4000);
+      toggleBtn.addEventListener("click", () => {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+          toggleBtn.textContent = "☀️";
+          localStorage.setItem("theme", "dark");
+        } else {
+          toggleBtn.textContent = "🌙";
+          localStorage.setItem("theme", "light");
+        }
+      });
     </script>
   </body>
 </html>
-DOCTYPE htm
